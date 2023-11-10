@@ -2,10 +2,11 @@ print("Please work")
 print("I think I got it")
 print("Hello World")
 
-input("What is your dick size)
+input("What is your dick size")
 if input < 7:
-print("Dickless")
+    print("Dickless")
 else:
-print("Wow")
+    print("Wow")
 
+print("wow")
 
