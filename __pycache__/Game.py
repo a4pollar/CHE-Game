@@ -58,13 +58,13 @@ def square(x, y):   #AP: Draws and fills in a square
     path.end_fill()     #AP: Fills in the square (black is the defult colour)
 
 
-def offset(point):
+def offset(point): #Converts cartesian coodrinates(x,y) of a point to the index in a 1D list. Representing/Defining the tiles on the game grid.
     """Return offset of point in tiles."""
-    x = (floor(point.x, 20) + 200) / 20
-    y = (180 - floor(point.y, 20)) / 20
-    index = int(x + y * 20)
-    print(index)
-    return index
+    x = (floor(point.x, 20) + 200) / 20 #AJ: In the x-direction: A point is a vector quantity in game and the floor function "grounds" the x-coordinate to the closest multiple of 20. Estimates this x-coordinate to the nearest horizontal gridline. This makes sure that Pacman moves to the nezt valid Horizontal tile. The +200, is used to make sure the resulting coordinate is positive.
+    y = (180 - floor(point.y, 20)) / 20 #AJ: In the y-direction. Grounds the y-coordinate to the nearest multiple of 20, estimates the y-coordinate to the nearest vertical gridline. This ensures that Pacman moves to the next valid vertical tile. The +200, is used to make sure the resulting coordinate is positive.
+    index = int(x + y * 20)     #AJ: Combines the x and y to get it overall in 1 Dimensional space
+    print(index)     #AJ: Prints the index that was calculated
+    return index    #AJ: Returns the index
 
 
 def valid(point):
