@@ -97,25 +97,25 @@ def world():    #AP: Draws background
             y = 180 - (index // 20) * 20
             square(x, y)
 
-            if tile == 1:   #AP: Drwas a white dot if the index of the tile is 1 (areas that have been defined to be the path that pacman follows)
+            if tile == 1:   #AP: Draws a white dot if the index of the tile is 1 (areas that have been defined to be the path that pacman follows)
                 path.up()   #AP: Pulls the pen up so that nothing is drawn
                 path.goto(x + 10, y + 10)   #AP: Moves pen to 10 units over/up from the point where the square started from
                 path.dot(2, 'white')    #AP: Draws a white dot on the screen, with size of 2
 
 
-def move():
+def move():    #AJ: Move function responsible for moving Pacman and the ghosts
     """Move pacman and all ghosts."""
-    writer.undo()
-    writer.write(state['score'])
+    writer.undo()     #AJ: Undos the last action done by the 'write' turtle. In this context, turtle is responsible for displaying the score on the screen so it clears out the old score and updates the new one.
+    writer.write(state['score']) # AJ: Displays/Writes the updated score onto the user's screen
 
-    clear()
+    clear()    #AJ: Clears the entire drawing before a new one appears on the screen
 
-    if valid(pacman + aim):
-        pacman.move(aim)
+    if valid(pacman + aim): #AJ: Pacman + aim calculates the new position of Pacman by adding the original position plus the direction vector(aim). The valid function ensures that Pacman is within the boundaries of the game and in a clear position.
+        pacman.move(aim)    #AJ: If the new position is valid, Pacman can move to the 'aim' direction vector
 
-    index = offset(pacman)
+    index = offset(pacman)     #AJ: Locating the index of the position time that Pacman is on using the offset function
 
-    if tiles[index] == 1:
+    if tiles[index] == 1:    
         tiles[index] = 2
         state['score'] += 1
         x = (index % 20) * 20 - 200
