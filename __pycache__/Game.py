@@ -6,12 +6,12 @@ from turtle import *    #AP: Imports all functions from turtle (a graphics inter
 from freegames import floor, vector #AP: Imports the function floor and class vector from feegames (a collection of free Python games)
 
 #AP: Initilizing variables
-state = {'score': 0}    #AP: Sets the score visable to the user to zero
-path = Turtle(visible=False)    #AP: Sets the arrow that follows 'Paceman' to invisable so that the user can not see it
-writer = Turtle(visible=False)  #AP: Sets the arrow at the score board to invisable so that the user can not see it
-aim = vector(5, 0)  #AP: Determines the dirction 'Pacman' will move in at intial location
-pacman = vector(-40, -80)   #AP: Sets 'Pacman' to an intial location
-ghosts = [  #AP: Sets the intial staring position of each ghost
+state = {'score': 0}    #AP: Creates a score visable to the user, and sets it equal to zero
+path = Turtle(visible=False)    #AP: Creates an arrow that follows 'Paceman', and sets it to invisable so that the user can not see it
+writer = Turtle(visible=False)  #AP: Creates an arrow at the score board, and sets it to invisable so that the user can not see it
+aim = vector(5, 0)  #AP: Creates a direction vector and sets it to the dirction 'Pacman' will move in at intial location
+pacman = vector(-40, -80)   #AP: Creates a vector for 'Pacman' and sets 'Pacman' to an intial location
+ghosts = [  #AP: Creates Ghosts and sets the intial staring position of each ghost
     [vector(-180, 160), vector(5, 0)],  #AP: Ghost in the top left
     [vector(-180, -160), vector(0, 5)], #AP: Ghost in the bottom left
     [vector(100, 160), vector(0, -5)],  #AP: Ghost in the top right
@@ -55,31 +55,32 @@ def square(x, y):   #AP: Draws and fills in a square
         path.forward(20)    #AP: Determines the length of the square (20) - moves the pen 20 units forward
         path.left(90)       #AP: Makes the pen turn at a 90 degree angle to create a squre shape
 
-    path.end_fill()     #AP: Fills in the square (black is the defult colour)
+    path.end_fill()     #AP: Fills in the square 
 
 
 def offset(point): #Converts cartesian coodrinates(x,y) of a point to the index in a 1D list. Representing/Defining the tiles on the game grid.
     """Return offset of point in tiles."""
-    x = (floor(point.x, 20) + 200) / 20 #AJ: In the x-direction: A point is a vector quantity in game and the floor function "grounds" the x-coordinate to the closest multiple of 20. Estimates this x-coordinate to the nearest horizontal gridline. This makes sure that Pacman moves to the nezt valid Horizontal tile. The +200, is used to make sure the resulting coordinate is positive.
+    x = (floor(point.x, 20) + 200) / 20 #AJ: In the x-direction: A point is a vector quantity in game and the floor function "grounds" the x-coordinate to the closest multiple of 20 (tiles are 20 units in length). Estimates this x-coordinate to the nearest horizontal gridline. This makes sure that Pacman moves to the nezt valid Horizontal tile. The +200, is used to make sure the resulting coordinate is positive.
     y = (180 - floor(point.y, 20)) / 20 #AJ: In the y-direction. Grounds the y-coordinate to the nearest multiple of 20, estimates the y-coordinate to the nearest vertical gridline. This ensures that Pacman moves to the next valid vertical tile. The +200, is used to make sure the resulting coordinate is positive.
     index = int(x + y * 20)     #AJ: Combines the x and y to get it overall in 1 Dimensional space
-    print(index)     #AJ: Prints the index that was calculated
     return index    #AJ: Returns the index
 
 
-def valid(point):
+def valid(point):   #AP: Returns True or False based on whether a point is within the tiles that 'Pacman' and other game characters are contained to
     """Return True if point is valid in tiles."""
-    index = offset(point)
+    index = offset(point)   #AP: Obtains the coordinate of a point in terms of is index in a 1D list
 
-    if tiles[index] == 0:
-        return False
+    if tiles[index] == 0:   #AP: Finds if the point is a '1' or a '0' based off it's index in the list denoted as 'tiles' and checks to see if it equals zero
+        return False        #AP: If the point is a '0', it is not in a valid tile (tiles that do not compose the path that 'Pacman' can take), and so False is returned 
 
-    index = offset(point + 19)
+    #AP: There are multiple points within a valid tile, however because 'Pacman'/Ghosts are shown to take up an entire tile to the user, it is possiable for 'Pacman'/Ghosts to be at a point in a valid tile when from the screen it looks like they are not in a valid tile
+    #AP: To deal with this, the index of a point in tile above/to the right of the tile 'Pacman'/Ghosts are in is determined and then checked to see if it is in a valid tile
+    index = offset(point + 19)  #AP: Adds 19 to the x and y values of the point. Each tile of 20 spaces apart, so adding 19 to a point in the tile (starting 1 unit in) gets to the coordinates of the next tile
 
-    if tiles[index] == 0:
-        return False
+    if tiles[index] == 0:   #AP: Checks to see if the point above/to the left of the ogrinal point is an invalid tile
+        return False        #AP: If the point above/to the left is an invalid tile, False is returned
 
-    return point.x % 20 == 0 or point.y % 20 == 0
+    return point.x % 20 == 0 or point.y % 20 == 0   #AP: Returns True if either the x or y value is a multiple of 20. Since there are no diagonal lines and the tiles/squares are in increments of 20, if either of these conditions are met and the other two 'if statements' are Tue, 'Pacman'/Ghosts will be be shown on the screen to be in a valid tile 
 
 
 def world():    #AP: Draws background
@@ -92,14 +93,15 @@ def world():    #AP: Draws background
         tile = tiles[index]     #AP: uses the index of each tile to determine if it is a 1 or 0 and then sets that value to the variable 'tile' 
 
         if tile > 0:    #AP: If the index of the tile is 1 draw a sqaure
-            x = (index % 20) * 20 - 200     #AP: Determines the x-value of the square's inital position by moving the x value 20 points over for every square, since each square is 20 points in length. 
-            #AP: 'index % 20 * 20' determines the size of the tile and all the coloured tiles that came before it (in terms of x starting at x=0), and because there are 200 points to the left and the right of the center, adding '-200' moves the x-value 20 points over from the pervious x value 
-            y = 180 - (index // 20) * 20
-            square(x, y)
+            x = (index % 20) * 20 - 200     #AP: Determines the x-value of the square's inital position. This is done by moving the x value 20 units over for every square, since each square is 20 points in length. 
+            #AP: 'index % 20 * 20' determines the size of the tile and all the coloured tiles that came before it (in terms of x starting at x=0), and because there are 200 points of game play to the left of the center, adding '-200' moves the x-value to the left side of the screen, instead of the middle of the screen  
+            y = 180 - (index // 20) * 20    #AP: AP: Determines the y-value of the square's inital position. This is done by moving the y value 20 units down for every line of tiles created
+            #AP: 'index//20' determines the line that the tile is on (the first tiles are on line 1). The '*20' then determines the size tile, plus any tile that comes before it (in terms of y starting at y=0). and because there are 180 units of game play above the cetner, the '180-' part makes the y values start from the top instead of the center
+            square(x, y) #AP: Draws sqaures/tiles that start from the top left side of the screen and are 20 units apart from the start position of the pervious square/tile
 
             if tile == 1:   #AP: Draws a white dot if the index of the tile is 1 (areas that have been defined to be the path that pacman follows)
                 path.up()   #AP: Pulls the pen up so that nothing is drawn
-                path.goto(x + 10, y + 10)   #AP: Moves pen to 10 units over/up from the point where the square started from
+                path.goto(x + 10, y + 10)   #AP: Moves pen 10 units over/up from the point where the square started from
                 path.dot(2, 'white')    #AP: Draws a white dot on the screen, with size of 2
 
 
