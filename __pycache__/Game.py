@@ -155,24 +155,23 @@ def move():    #AJ: Move function responsible for moving Pacman and the ghosts
     ontimer(move, 100)
 
 
-def change(x, y):
+def change(x, y):        #AAP: Change function responsible for changing the way the pacman faces, this function uses x and y to represent the change in x and y coordinates
     """Change pacman aim if valid."""
-    if valid(pacman + vector(x, y)):
-        aim.x = x
-        aim.y = y
+    if valid(pacman + vector(x, y)):   #AAP: This function creates a vector using x and y coordinates, then adds the vector to the current position of the pacman
+        aim.y = y       #AAP: if the new position is valid, the y component of the aim vector is set to the new y component
 
 
-setup(420, 420, 370, 0)
-hideturtle()
-tracer(False)
-writer.goto(160, 160)
-writer.color('white')
-writer.write(state['score'])
-listen()
-onkey(lambda: change(5, 0), 'Right')
-onkey(lambda: change(-5, 0), 'Left')
-onkey(lambda: change(0, 5), 'Up')
-onkey(lambda: change(0, -5), 'Down')
-world()
-move()
-done()
+setup(420, 420, 370, 0)  #AAP: Using the turtle module, this sets up the turtle window with a width and height of 420 pixels, and the window is positioned at coordinates (370,0)
+hideturtle()             #AAP: Hides the turtle cursor
+tracer(False)            #AAP: Turns off the animation rendering
+writer.goto(160, 160)    #AAP: Sets up a turtle and positions it at (160,160)
+writer.color('white')    #AAP: Colours the turtle white
+writer.write(state['score']) #AAP: States the score of the player
+listen()                 #AAP: Makes the turtle window listen for keyboard events
+onkey(lambda: change(5, 0), 'Right') #AAP: Uses the onkey function to bind pressing the right arrow key to the change(5, 0) function
+onkey(lambda: change(-5, 0), 'Left') #AAP: Uses the onkey function to bind pressing the left arrow key to the change(-5, 0) function
+onkey(lambda: change(0, 5), 'Up')    #AAP: Uses the onkey function to bind pressing the up arrow key to the change(0, 5) function
+onkey(lambda: change(0, -5), 'Down') #AAP: Uses the onkey function to bind pressing the down arrow key to the change(0, -5) function
+world()                 #AAP: Draws the background
+move()                  #AAP: Function that moves Pacman and the ghosts
+done()                  #AAP: Keeps the window open until the user closes it
