@@ -58,7 +58,7 @@ def square(x, y):   #AP: Draws and fills in a square
     path.end_fill()     #AP: Fills in the square 
 
 
-def offset(point): #Converts cartesian coodrinates(x,y) of a point to the index in a 1D list. Representing/Defining the tiles on the game grid.
+def offset(point): #AJ: Converts cartesian coodrinates(x,y) of a point to the index in a 1D list. Representing/Defining the tiles on the game grid.
     """Return offset of point in tiles."""
     x = (floor(point.x, 20) + 200) / 20 #AJ: In the x-direction: A point is a vector quantity in game and the floor function "grounds" the x-coordinate to the closest multiple of 20 (tiles are 20 units in length). Estimates this x-coordinate to the nearest horizontal gridline. This makes sure that Pacman moves to the nezt valid Horizontal tile. The +200, is used to make sure the resulting coordinate is positive.
     y = (180 - floor(point.y, 20)) / 20 #AJ: In the y-direction. Grounds the y-coordinate to the nearest multiple of 20, estimates the y-coordinate to the nearest vertical gridline. This ensures that Pacman moves to the next valid vertical tile. The +200, is used to make sure the resulting coordinate is positive.
@@ -117,8 +117,8 @@ def move():    #AJ: Move function responsible for moving Pacman and the ghosts
 
     index = offset(pacman)     #AJ: Locating the index of the position time that Pacman is on using the offset function
 
-    if tiles[index] == 1:    
-        tiles[index] = 2
+    if tiles[index] == 1:   #AJ: It is checking if the tile on this index has a value of one. This is used to indicate if there is a 'Pac-dot' on this tile
+        tiles[index] = 2    #AJ: If condition above is true, this shows that Pacman has eaten this dot, since tiles[index] = 2 , most likely represents the point where a tile where a dot has been eaten.
         state['score'] += 1
         x = (index % 20) * 20 - 200
         y = 180 - (index // 20) * 20
