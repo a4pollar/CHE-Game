@@ -119,8 +119,8 @@ def move():    #AJ: Move function responsible for moving Pacman and the ghosts
 
     if tiles[index] == 1:   #AJ: It is checking if the tile on this index has a value of one. This is used to indicate if there is a 'Pac-dot' on this tile
         tiles[index] = 2    #AJ: If condition above is true, this shows that Pacman has eaten this dot, since tiles[index] = 2 , most likely represents the point where a tile where a dot has been eaten.
-        state['score'] += 1
-        x = (index % 20) * 20 - 200
+        state['score'] += 1 #AJ: Adds 1 point to the scoreboard a Pac-dot is eaten
+        x = (index % 20) * 20 - 200    #AJ: 
         y = 180 - (index // 20) * 20
         square(x, y)
 
