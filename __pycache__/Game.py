@@ -5,6 +5,11 @@ from random import choice   #AP: Imports choice() method from the random library
 from turtle import *    #AP: Imports all functions from turtle (a graphics interface)
 from freegames import floor, vector #AP: Imports the function floor and class vector from feegames (a collection of free Python games)
 
+import turtle
+
+
+
+
 #AP: Initilizing variables
 state = {'score': 0}    #AP: Creates a score visable to the user, and sets it equal to zero
 path = Turtle(visible=False)    #AP: Creates an arrow that follows 'Paceman', and sets it to invisable so that the user can not see it
@@ -120,7 +125,7 @@ def move():    #AJ: Move function responsible for moving Pacman and the ghosts
     if tiles[index] == 1:   #AJ: It is checking if the tile on this index has a value of one. This is used to indicate if there is a 'Pac-dot' on this tile
         tiles[index] = 2    #AJ: If condition above is true, this shows that Pacman has eaten this dot, since tiles[index] = 2 , most likely represents the point where a tile where a dot has been eaten.
         state['score'] += 1 #AJ: Adds 1 point to the scoreboard a Pac-dot is eaten
-        x = (index % 20) * 20 - 200  #AJ: The remainder function is used to give the horizontal grid position of the dot. It is multiplied by 20 so it can scale this position in the x-direction across the pixel coordinates displayed on the screen. Lastly, subtracting 20 is used for alignment, aligning the leftmost point to the leftmost column on the grid. Overall, the x represents the horizontal coordinates on the screen where the dot should be.
+        x = (index % 20) * 20 - 200  #AJ: The remainder function is used to give the horizontal grid position of the dot. It is multiplied by 20 so it can scale this position in the x-direction across the pixel coordinates displayed on the screen. Lastly, subtracting 200 is used for alignment, aligning the leftmost point to the leftmost column on the grid. Overall, the x represents the horizontal coordinates on the screen where the dot should be.
         y = 180 - (index // 20) * 20 #AJ: The integer division gives vertical position of the dot on the grid (rows). When multiplying it by 20, it scales this position in the y-direction across the pixel coordinates displayed on screen. Subtracting scaled y-position by 180 flips the coordinates since typical graphical coordinates have positive y going down.   
         square(x, y) #AJ: Calls the square function where it will fill up a square in those coordinates to represent a consumed Pac-dot.
         
@@ -133,10 +138,10 @@ def move():    #AJ: Move function responsible for moving Pacman and the ghosts
             point.move(course)        #AJ: If valid, it will continue to move in that specific direction
         else: #AJ: If not valid, one of the new direction vector options below will be chosen for the ghost's movement.
             options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
+                vector(5, 0),   #Right
+                vector(-5, 0),  #Left
+                vector(0, 5),   #Up
+                vector(0, -5),  #Down
             ]
             plan = choice(options) #AJ: Chooses from a random module of movements to pick one of the options
             course.x = plan.x    #AJ:Update's the ghost's x-direction
@@ -158,6 +163,7 @@ def move():    #AJ: Move function responsible for moving Pacman and the ghosts
 def change(x, y):        #AAP: Change function responsible for changing the way the pacman faces, this function uses x and y to represent the change in x and y coordinates
     """Change pacman aim if valid."""
     if valid(pacman + vector(x, y)):   #AAP: This function creates a vector using x and y coordinates, then adds the vector to the current position of the pacman
+        aim.x = x
         aim.y = y       #AAP: if the new position is valid, the y component of the aim vector is set to the new y component
 
 
