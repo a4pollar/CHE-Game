@@ -120,13 +120,13 @@ def move():    #AJ: Move function responsible for moving Pacman and the ghosts
     if tiles[index] == 1:   #AJ: It is checking if the tile on this index has a value of one. This is used to indicate if there is a 'Pac-dot' on this tile
         tiles[index] = 2    #AJ: If condition above is true, this shows that Pacman has eaten this dot, since tiles[index] = 2 , most likely represents the point where a tile where a dot has been eaten.
         state['score'] += 1 #AJ: Adds 1 point to the scoreboard a Pac-dot is eaten
-        x = (index % 20) * 20 - 200    #AJ: 
-        y = 180 - (index // 20) * 20
-        square(x, y)
-
-    up()
-    goto(pacman.x + 10, pacman.y + 10)
-    dot(20, 'yellow')
+        x = (index % 20) * 20 - 200  #AJ: The remainder function is used to give the horizontal grid position of the dot. It is multiplied by 20 so it can scale this position in the x-direction across the pixel coordinates displayed on the screen. Lastly, subtracting 20 is used for alignment, aligning the leftmost point to the leftmost column on the grid. Overall, the x represents the horizontal coordinates on the screen where the dot should be.
+        y = 180 - (index // 20) * 20 #AJ: The integer division gives vertical position of the dot on the grid (rows). When multiplying it by 20, it scales this position in the y-direction across the pixel coordinates displayed on screen. Subtracting scaled y-position by 180 flips the coordinates since typical graphical coordinates have positive y going down.   
+        square(x, y) #AJ: Calls the square function where it will fill up a square in those coordinates to represent a consumed Pac-dot.
+        
+    up() #AJ: Lifts the pen off
+    goto(pacman.x + 10, pacman.y + 10) #AJ: Shifts the turtle slightly offset from Pacman's original position
+    dot(20, 'yellow')     #AJ: Draws Pacman as a yellow dot
 
     for point, course in ghosts:
         if valid(point + course):
