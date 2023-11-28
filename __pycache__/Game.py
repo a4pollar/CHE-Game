@@ -138,21 +138,21 @@ def move():    #AJ: Move function responsible for moving Pacman and the ghosts
                 vector(0, 5),
                 vector(0, -5),
             ]
-            plan = choice(options)
-            course.x = plan.x
-            course.y = plan.y
+            plan = choice(options) #AJ: Chooses from a random module of movements to pick one of the options
+            course.x = plan.x    #AJ:Update's the ghost's x-direction
+            course.y = plan.y    #AJ:Update's the ghost's y-direction
 
-        up()
-        goto(point.x + 10, point.y + 10)
-        dot(20, 'red')
+        up()    #AJ: Lifts pen off
+        goto(point.x + 10, point.y + 10)    #AJ: Shifts the turtle slightly offset from ghost's original position (10 units up and 10 units right from Pacman's current displacement.
+        dot(20, 'red')    #AJ: Draws the ghosts as red dots
 
-    update()
+    update()    #AJ: Updates the changes
 
-    for point, course in ghosts:
-        if abs(pacman - point) < 20:
-            return
+    for point, course in ghosts:    #AJ:Look function for the ghost's movement and direction
+        if abs(pacman - point) < 20:    #AJ:Sees if the distance between the ghost and Pacman is less than 20. Condition that checks if Pacman is close enough to the ghost for it to be considered a collision
+            return #AJ: If it is a collision, the move function will stop.
 
-    ontimer(move, 100)
+    ontimer(move, 100)    #AJ: Schedules move function to return after 100 ms, which in game will delay the movement of Pacman when he hits a ghost.
 
 
 def change(x, y):        #AAP: Change function responsible for changing the way the pacman faces, this function uses x and y to represent the change in x and y coordinates
