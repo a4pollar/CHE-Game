@@ -126,9 +126,9 @@ def move():    #AJ: Move function responsible for moving Pacman and the ghosts
         
     up() #AJ: Lifts the pen off
     goto(pacman.x + 10, pacman.y + 10) #AJ: Shifts the turtle slightly offset from Pacman's original position
-    dot(20, 'yellow')     #AJ: Draws Pacman as a yellow dot
+    dot(20, 'yellow')     #AJ: Draws ghost as a yellow dot
 
-    for point, course in ghosts:
+    for point, course in ghosts: 
         if valid(point + course):
             point.move(course)
         else:
