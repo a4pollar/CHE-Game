@@ -65,7 +65,7 @@ def egg_dropped(egg):
         root.destroy()
 
 def lose_a_life():
-    global lives_remaining
+    global lives_remaining #AJ: Changes the lives_remaining variable from a local to a global variable, so we can call on it throughout the code
     lives_remaining -= 1
     c.itemconfigure(lives_text, text="Lives: "+ str(lives_remaining))
 
