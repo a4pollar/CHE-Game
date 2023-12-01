@@ -69,15 +69,15 @@ def lose_a_life():
     lives_remaining -= 1
     c.itemconfigure(lives_text, text="Lives: "+ str(lives_remaining))
 
-def check_catch():
-    (catcherx, catchery, catcherx2, catchery2) = c.coords(catcher)
-    for egg in eggs:
-        (eggx, eggy, eggx2, eggy2) = c.coords(egg)
-        if catcherx < eggx and eggx2 < catcherx2 and catchery2 - eggy2 < 40:
-            eggs.remove(egg)
-            c.delete(egg)
-            increase_score(egg_score)
-    root.after(100, check_catch)
+def check_catch(): # VK This function checks for when collisions occur between the lists 'catcher' and 'egg'
+    (catcherx, catchery, catcherx2, catchery2) = c.coords(catcher) #VK assigns the top left and bottom right coordinates of the catcher on the canvas ????
+    for egg in eggs: # VK Checks each index in the this list 
+        (eggx, eggy, eggx2, eggy2) = c.coords(egg) #VK simalary to the catcher coords, this assigns the coords of the egg on the canvas ???
+        if catcherx < eggx and eggx2 < catcherx2 and catchery2 - eggy2 < 40: # VK checks whether if the eggs width falls within the catchers width and checks if the vertical range is close enough
+            eggs.remove(egg) # VK if this is true then it removes the egg from the screen ??
+            c.delete(egg) # VK Deletes from history
+            increase_score(egg_score) # VK Increases the score
+    root.after(100, check_catch) # VK Schedules function to reoccur this function after 100ms 
 
 def increase_score(points):
     global score, egg_speed, egg_interval
