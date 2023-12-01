@@ -51,18 +51,18 @@ def move_eggs(): #AJ: Function moves eggs down the screen
     for egg in eggs: #AJ: Creates a loop that will go through every egg in the list 'eggs'
         (eggx, eggy, eggx2, eggy2) = c.coords(egg) #AJ: Retrieves the coordinates off the boundaries of the eggs. It gets the x and y coordinates of the top-left and bottom-right corner.
         #print(c.coords(egg)) #AJ: 
-        c.move(egg,0, 10)
-        if eggy2 > canvas_height:
-            egg_dropped(egg)
-    root.after(egg_speed, move_eggs)
+        c.move(egg,0, 10)  #AJ: This moves the egg down the canvas. The first item is what needs to be moved down, the second is the x-coordinate, which should remain the same, and lastly, the y-coordinate will move down by 10 pixels.
+        if eggy2 > canvas_height: #AJ: Checks if the bottom corner of the egg has gone greater than/beyond the height of the canvas. This checks if the egg has reached the bottom.
+            egg_dropped(egg) #When the egg has reached the bottom, the egg drop function will be called. This will get rid of the egg, take away a life from the player and check if the game is done. (The player has ran out of lives)
+    root.after(egg_speed, move_eggs) #After a specific time, this function is called again to move another egg, creating a loop.
 
-def egg_dropped(egg):
-    eggs.remove(egg)
-    c.delete(egg)
-    lose_a_life()
-    if lives_remaining == 0:
-        messagebox.showinfo("Game Over!", "Final Score: "+ str(score))
-        root.destroy()
+def egg_dropped(egg): #AJ: Defines the parameter for the egg that has reached the bottom
+    eggs.remove(egg) #AJ: Removes the eggs the egg list, which is used to track all the eggs on the canvas at the time.
+    c.delete(egg) #AJ: Removes the egg from the canvas (the graphical representation of the egg)
+    lose_a_life() #Calls the lose_a_life function to indicate that the player has lost a life.
+    if lives_remaining == 0:    #AJ: Sets a condition for when the player runs out of lives (If the lives_remaining is = 0, then they have ran out)
+        messagebox.showinfo("Game Over!", "Final Score: "+ str(score)) #AJ: A message will appear on the screen telling the player that the game is over, including their final score. To do this, the score will be converted into a string so it can be displayed with the other text.
+        root.destroy() #AJ: Closes the game window since the game is over
 
 def lose_a_life(): #Takes a life away by  an increment of 1 whenever the egg doesnt fall in the basket
     global lives_remaining #AJ: Changes the lives_remaining variable from a local to a global variable, so we can call on it throughout the code
