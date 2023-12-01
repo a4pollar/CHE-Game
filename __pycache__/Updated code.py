@@ -1,6 +1,7 @@
 from itertools import cycle     
 from random import randrange
 from tkinter import Canvas, Tk, messagebox, font
+from tkinter import*
 from PIL import Image,ImageTk
 
 canvas_width = 800
@@ -13,7 +14,8 @@ c.create_rectangle(-5, canvas_height-100, canvas_width+5, canvas_height+5, fill=
 c.create_oval(-80, -80, 120, 120, fill='orange', width=0)
 c.pack()
 
-img= ImageTk.PhotoImage(Image.open("crabapple1.gif"))
+
+
 
 color_cycle = cycle(["light blue", "light green", "light pink", "light yellow", "light cyan"])
 egg_width = 45
@@ -22,17 +24,27 @@ egg_score = 10
 egg_speed = 500
 egg_interval = 4000
 difficulty = 0.95
-catcher_color = "blue"
-catcher_width = 100
-catcher_height = 100
+catcher_color = "green"
+catcher_width = 80
+catcher_height = 80
 catcher_startx = canvas_width / 2 - catcher_width / 2
 catcher_starty = canvas_height - catcher_height - 20
 catcher_startx2 = catcher_startx + catcher_width
 catcher_starty2 = catcher_starty + catcher_height
 
-catcher = c.create_arc(catcher_startx, catcher_starty, catcher_startx2, catcher_starty2, start=200, extent=140, style="arc", outline=catcher_color, width=3)
+catcher = c.create_arc(catcher_startx, catcher_starty, catcher_startx2, catcher_starty2, start=200, extent=140, style="arc", outline=catcher_color, width=0)
+print(catcher)
 game_font = font.nametofont("TkFixedFont")
 game_font.config(size=18)
+
+
+img=Image.open("__pycache__/crabapple.gif")
+img1=img.resize((200,200))
+image=ImageTk.PhotoImage(img1)
+image1=ImageTk.PhotoImage(img)
+img=c.create_image(310,250,anchor='nw',image=image)
+
+
 
 
 score = 0
@@ -48,10 +60,18 @@ def create_egg():
     y = 40
     new_egg = c.create_oval(x, y, x+egg_width, y+egg_height, fill=next(color_cycle), width=0)
     eggs.append(new_egg)
+    print(eggs)
     root.after(egg_interval, create_egg)
 
 def move_eggs():
     for egg in eggs:
+        print(egg)
+        if eggs[0] == 7:
+            egg_score = 20
+            increase_score
+            #increase_score(20)
+            print("hello")
+            #img1=c.create_image(50,250,anchor='nw',image=image1)
         (eggx, eggy, eggx2, eggy2) = c.coords(egg)
         #print(c.coords(egg))
         c.move(egg,0, 10)
@@ -93,11 +113,13 @@ def move_left(event):
     (x1, y1, x2, y2) = c.coords(catcher)
     if x1 > 0:
         c.move(catcher, -20, 0)
+        c.move(img, -20, 0)
 
 def move_right(event):
     (x1, y1, x2, y2) = c.coords(catcher)
     if x2 < canvas_width:
         c.move(catcher, 20, 0)
+        c.move(img, 20, 0)
 
 c.bind("<Left>", move_left)
 c.bind("<Right>", move_right)
