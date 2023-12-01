@@ -1,42 +1,42 @@
-from itertools import cycle     
-from random import randrange
-from tkinter import Canvas, Tk, messagebox, font
+from itertools import cycle     #AAP: importing cycle from itertools to create a colour cycle
+from random import randrange  #AAP: importing randrange from random to generate random numbers
+from tkinter import Canvas, Tk, messagebox, font #AAP: importing Tinkter modules
 
-canvas_width = 800
-canvas_height = 400
+canvas_width = 800  #AAP: setting up canvas width
+canvas_height = 400 #AAP: setting up canvas height
 
-root = Tk()
-root.title("Egg Catcher")
-c = Canvas(root, width=canvas_width, height=canvas_height, background="deep sky blue")
-c.create_rectangle(-5, canvas_height-100, canvas_width+5, canvas_height+5, fill="sea green", width=0)
-c.create_oval(-80, -80, 120, 120, fill='orange', width=0)
-c.pack()
+root = Tk() #AAP: creates Tinkter window
+root.title("Egg Catcher") #AAP: titles the window
+c = Canvas(root, width=canvas_width, height=canvas_height, background="deep sky blue") #AAP: creates a canvas with a specified width, height, and background colour
+c.create_rectangle(-5, canvas_height-100, canvas_width+5, canvas_height+5, fill="sea green", width=0) #AAP: creates a sea green rectangle to represent the grass
+c.create_oval(-80, -80, 120, 120, fill='orange', width=0) #AAP: creates an orange oval to represent the sun
+c.pack() #AAP: packs the canvas into the Tinkter window
 
-color_cycle = cycle(["light blue", "light green", "light pink", "light yellow", "light cyan"])
-egg_width = 45
-egg_height = 55
-egg_score = 10
-egg_speed = 500
-egg_interval = 4000
-difficulty = 0.95
-catcher_color = "blue"
-catcher_width = 100
-catcher_height = 100
-catcher_startx = canvas_width / 2 - catcher_width / 2
-catcher_starty = canvas_height - catcher_height - 20
-catcher_startx2 = catcher_startx + catcher_width
-catcher_starty2 = catcher_starty + catcher_height
+color_cycle = cycle(["light blue", "light green", "light pink", "light yellow", "light cyan"]) #AAP: defines a colour cycle for the eggs
+egg_width = 45 #AAP: width of the eggs
+egg_height = 55 #AAP: height of the eggs
+egg_score = 10 #AAP: score per egg collected
+egg_speed = 500 #AAP: speed that eggs fall at
+egg_interval = 4000 #AAP: interval between egg drops
+difficulty = 0.95 #AAP: level of difficulty
+catcher_color = "blue" #AAP: colour of the catcher
+catcher_width = 100 #AAP: width of the catcher
+catcher_height = 100 #AAP: height of the catcher
+catcher_startx = canvas_width / 2 - catcher_width / 2 #AAP: starting x coordinate of the catcher
+catcher_starty = canvas_height - catcher_height - 20 #AAP: starting y coordinate of the catcher
+catcher_startx2 = catcher_startx + catcher_width #AAP: ending x coordinate of the catcher
+catcher_starty2 = catcher_starty + catcher_height #AAP: ending y coordinate of the catcher
 
-catcher = c.create_arc(catcher_startx, catcher_starty, catcher_startx2, catcher_starty2, start=200, extent=140, style="arc", outline=catcher_color, width=3)
-game_font = font.nametofont("TkFixedFont")
-game_font.config(size=18)
+catcher = c.create_arc(catcher_startx, catcher_starty, catcher_startx2, catcher_starty2, start=200, extent=140, style="arc", outline=catcher_color, width=3) #AAP: creating the catcher on the canvas
+game_font = font.nametofont("TkFixedFont") #AAP: retrieving the Tinkter fixed font
+game_font.config(size=18) #AAP: setting a size for the font
 
 
-score = 0
-score_text = c.create_text(10, 10, anchor="nw", font=game_font, fill="darkblue", text="Score: "+ str(score))
+score = 0 #AAP: sets intial score
+score_text = c.create_text(10, 10, anchor="nw", font=game_font, fill="darkblue", text="Score: "+ str(score)) #AAP: displays score on canvas
 
-lives_remaining = 3
-lives_text = c.create_text(canvas_width-10, 10, anchor="ne", font=game_font, fill="darkblue", text="Lives: "+ str(lives_remaining))
+lives_remaining = 3 #AAP: sets initial number of lives
+lives_text = c.create_text(canvas_width-10, 10, anchor="ne", font=game_font, fill="darkblue", text="Lives: "+ str(lives_remaining)) #AAP: displays number of lives on canvas
 
 eggs = []
 
