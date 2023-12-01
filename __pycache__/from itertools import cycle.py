@@ -48,9 +48,9 @@ def create_egg():
     root.after(egg_interval, create_egg)
 
 def move_eggs(): #AJ: Function moves eggs down the screen
-    for egg in eggs: 
-        (eggx, eggy, eggx2, eggy2) = c.coords(egg)
-        #print(c.coords(egg))
+    for egg in eggs: #AJ: Creates a loop that will go through every egg in the list 'eggs'
+        (eggx, eggy, eggx2, eggy2) = c.coords(egg) #AJ: Retrieves the coordinates off the boundaries of the eggs. It gets the x and y coordinates of the top-left and bottom-right corner.
+        #print(c.coords(egg)) #AJ: 
         c.move(egg,0, 10)
         if eggy2 > canvas_height:
             egg_dropped(egg)
