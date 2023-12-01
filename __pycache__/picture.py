@@ -24,4 +24,4 @@ def print_picture_frame(create_picture_frame):
         print()
 
 if __name__=="__main__":
-    print_picture_frame(create_picture_frame(4,5,'?'))
+    print_picture_frame(create_picture_frame(10,3,'*'))

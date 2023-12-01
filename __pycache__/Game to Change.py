@@ -17,6 +17,7 @@ from freegames import floor, vector #AP: Imports the function floor and class ve
 state = {'score': 0}    #AP: Sets the score visable to the user to zero
 path = Turtle(visible=False)    #AP: Sets the arrow that follows 'Paceman' to invisable so that the user can not see it
 writer = Turtle(visible=False)  #AP: Sets the arrow at the score board to invisable so that the user can not see it
+#pacman1=Turtle
 aim = vector(5, 0)  #AP: Determines the dirction 'Pacman' will move in at intial location
 pacman = vector(-40, -80)   #AP: Sets 'Pacman' to an intial location
 ghosts = [  #AP: Sets the intial staring position of each ghost
@@ -71,7 +72,6 @@ def offset(point):
     x = (floor(point.x, 20) + 200) / 20
     y = (180 - floor(point.y, 20)) / 20
     index = int(x + y * 20)
-    print(index)
     return index
 
 
@@ -120,6 +120,7 @@ def move():
 
     if valid(pacman + aim):
         pacman.move(aim)
+    #pacman.speed(10)
 
     index = offset(pacman)
 
@@ -130,9 +131,17 @@ def move():
         y = 180 - (index // 20) * 20
         square(x, y)
 
-    up()
-    goto(pacman.x + 10, pacman.y + 10)
-    dot(20, 'yellow')
+
+
+    screen.register_shape('OneDrive\Documents\GitHub\CHE-Game\__pycache__\crabapple1.gif')
+    turt = Turtle('turtle')
+    turt.shape('OneDrive\Documents\GitHub\CHE-Game\__pycache__\crabapple1.gif')
+    turt.penup()
+    turt.goto(pacman.x + 10, pacman.y + 10)
+    screen.update()
+    screen.tracer(0)
+    turt.pendown()
+
 
     for point, course in ghosts:
         if valid(point + course):
@@ -167,7 +176,7 @@ def change(x, y):
         aim.x = x
         aim.y = y
 
-
+screen = Screen()
 setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
@@ -180,5 +189,6 @@ onkey(lambda: change(-5, 0), 'Left')
 onkey(lambda: change(0, 5), 'Up')
 onkey(lambda: change(0, -5), 'Down')
 world()
+#bgpic("OneDrive\Documents\GitHub\CHE-Game\__pycache__\crabapple1.gif")
 move()
 done()
