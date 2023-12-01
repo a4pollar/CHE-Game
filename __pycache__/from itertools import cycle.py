@@ -64,10 +64,10 @@ def egg_dropped(egg):
         messagebox.showinfo("Game Over!", "Final Score: "+ str(score))
         root.destroy()
 
-def lose_a_life():
+def lose_a_life(): #Takes a life away by  an increment of 1 whenever the egg doesnt fall in the basket
     global lives_remaining #AJ: Changes the lives_remaining variable from a local to a global variable, so we can call on it throughout the code
-    lives_remaining -= 1
-    c.itemconfigure(lives_text, text="Lives: "+ str(lives_remaining))
+    lives_remaining -= 1 #Reduces the lives_remaining value by 1, showing that a player has lost a life.
+    c.itemconfigure(lives_text, text="Lives: "+ str(lives_remaining)) #Updates the value of lives remaining on the screen. It updates the displayed text on the canvas where it says 'Lives' and it does this by converting the numerical value of remaining lives into a string.
 
 def check_catch(): # VK This function checks for when collisions occur between the lists 'catcher' and 'egg'
     (catcherx, catchery, catcherx2, catchery2) = c.coords(catcher) #VK assigns the top left and bottom right coordinates of the catcher on the canvas ????
