@@ -47,8 +47,8 @@ def create_egg():
     eggs.append(new_egg)
     root.after(egg_interval, create_egg)
 
-def move_eggs():
-    for egg in eggs:
+def move_eggs(): #AJ: Function moves eggs down the screen
+    for egg in eggs: 
         (eggx, eggy, eggx2, eggy2) = c.coords(egg)
         #print(c.coords(egg))
         c.move(egg,0, 10)
