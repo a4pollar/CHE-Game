@@ -1,6 +1,7 @@
 from itertools import cycle     
 from random import randrange
 from tkinter import Canvas, Tk, messagebox, font
+from PIL import Image,ImageTk
 
 canvas_width = 800
 canvas_height = 400
@@ -11,6 +12,8 @@ c = Canvas(root, width=canvas_width, height=canvas_height, background="deep sky 
 c.create_rectangle(-5, canvas_height-100, canvas_width+5, canvas_height+5, fill="sea green", width=0)
 c.create_oval(-80, -80, 120, 120, fill='orange', width=0)
 c.pack()
+
+img= ImageTk.PhotoImage(Image.open("crabapple1.gif"))
 
 color_cycle = cycle(["light blue", "light green", "light pink", "light yellow", "light cyan"])
 egg_width = 45
