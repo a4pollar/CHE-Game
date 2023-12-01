@@ -38,14 +38,14 @@ score_text = c.create_text(10, 10, anchor="nw", font=game_font, fill="darkblue",
 lives_remaining = 3 #AAP: sets initial number of lives
 lives_text = c.create_text(canvas_width-10, 10, anchor="ne", font=game_font, fill="darkblue", text="Lives: "+ str(lives_remaining)) #AAP: displays number of lives on canvas
 
-eggs = []
+eggs = [] #AJ: To keep track of the eggs in the game, this initializes the variable 'eggs' into a list
 
-def create_egg():
-    x = randrange(10, 740)
-    y = 40
-    new_egg = c.create_oval(x, y, x+egg_width, y+egg_height, fill=next(color_cycle), width=0)
-    eggs.append(new_egg)
-    root.after(egg_interval, create_egg)
+def create_egg(): #Function is used to create new eggs in the game
+    x = randrange(10, 740) #AJ: Chooses random x-coordinates for the new eggs to spawn at
+    y = 40 #AJ: The eggs will be dropped from the same initial starting height so the y-coordinate will remain constant
+    new_egg = c.create_oval(x, y, x+egg_width, y+egg_height, fill=next(color_cycle), width=0) #AJ: c.create_oval uses canvas, a widget used to create structural graphics, in order to create the oval shape. After defining the boundaries of the oval with x and y, it fills in the oval with a random colour on the colour cycle. The width is set to 0 so there is no border and an oval filled with a single colour is created
+    eggs.append(new_egg) #AJ  Keeps track of all the eggs in the game by referencing the new eggs created to the 'eggs' list.
+    root.after(egg_interval, create_egg) #AJ:  Manages the intervals in which the eggs are created by calling on the 'create_egg' function after a specific time interval. The 'after' part of the functon is used to delay the calling of the create_function
 
 def move_eggs(): #AJ: Function moves eggs down the screen
     for egg in eggs: #AJ: Creates a loop that will go through every egg in the list 'eggs'
@@ -86,7 +86,7 @@ def increase_score(points):
     egg_interval = int(egg_interval * difficulty)
     c.itemconfigure(score_text, text="Score: "+ str(score))
 
-def move_left(event):
+def move_left(event): 
     (x1, y1, x2, y2) = c.coords(catcher)
     if x1 > 0:
         c.move(catcher, -20, 0)
