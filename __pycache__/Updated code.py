@@ -21,6 +21,7 @@ color_cycle = cycle(["light blue", "light green", "light pink", "light yellow", 
 egg_width = 45
 egg_height = 55
 egg_score = 10
+egg_score1 = 20
 egg_speed = 500
 egg_interval = 4000
 difficulty = 0.95
@@ -33,7 +34,7 @@ catcher_startx2 = catcher_startx + catcher_width
 catcher_starty2 = catcher_starty + catcher_height
 
 catcher = c.create_arc(catcher_startx, catcher_starty, catcher_startx2, catcher_starty2, start=200, extent=140, style="arc", outline=catcher_color, width=0)
-print(catcher)
+#print(catcher)
 game_font = font.nametofont("TkFixedFont")
 game_font.config(size=18)
 
@@ -60,18 +61,12 @@ def create_egg():
     y = 40
     new_egg = c.create_oval(x, y, x+egg_width, y+egg_height, fill=next(color_cycle), width=0)
     eggs.append(new_egg)
-    print(eggs)
+    #print(eggs)
     root.after(egg_interval, create_egg)
 
 def move_eggs():
     for egg in eggs:
-        print(egg)
-        if eggs[0] == 7:
-            egg_score = 20
-            increase_score
-            #increase_score(20)
-            print("hello")
-            #img1=c.create_image(50,250,anchor='nw',image=image1)
+        #img1=c.create_image(50,250,anchor='nw',image=image1)
         (eggx, eggy, eggx2, eggy2) = c.coords(egg)
         #print(c.coords(egg))
         c.move(egg,0, 10)
@@ -97,10 +92,14 @@ def check_catch():
     for egg in eggs:
         (eggx, eggy, eggx2, eggy2) = c.coords(egg)
         if catcherx < eggx and eggx2 < catcherx2 and catchery2 - eggy2 < 40:
+            if eggs[0]%10 == 7 or egg%10 == 2:
+                increase_score(egg_score1)
+            else:
+                increase_score(egg_score)
             eggs.remove(egg)
             c.delete(egg)
-            increase_score(egg_score)
     root.after(100, check_catch)
+
 
 def increase_score(points):
     global score, egg_speed, egg_interval

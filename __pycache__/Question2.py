@@ -1,46 +1,28 @@
-import turtle
- 
-def generate_pacman():
-    """Generates a pacman using turtle graphics.
- 
-    Args:
-        None
- 
-    Returns:
-        None
-    """
-    # Create a turtle object
-    pacman = turtle.Turtle()
- 
-    # Set the speed of the turtle
-    pacman.speed(10)
- 
-    # Set the shape of the turtle
-    pacman.shape("circle")
- 
-    # Set the color of the turtle
-    pacman.color("yellow")
- 
-    # Set the starting position of the turtle
-    pacman.penup()
-    pacman.setpos(0, 0)
- 
-    # Draw the pacman
-    pacman.pendown()
-    pacman.begin_fill()
-    pacman.circle(50, steps=30)
-    pacman.end_fill()
- 
-    # Hide the turtle
-    pacman.hideturtle()
- 
-if __name__ == "__main__":
-    generate_pacman()
+import classroom
+from classroom import get_example_data
+
+def create_student_dictionary(names, student_ids, birthdays, department):
+    dict={"full_name":names,"ID":student_ids,"student_birthday":birthdays,"student":department}
+    print(dict)
+    return dict
 
 
+#print(x["full_name"])
 
-#import classroom
+listofnames = (classroom.get_example_data()[0][0])
+listofstudentids = (classroom.get_example_data()[0][1])
+listofnirthdays = (classroom.get_example_data()[0][2])
+listofdepartment = (classroom.get_example_data()[0][3])
 
-#print(classroom.get_example_data())
+namespecific = listofnames[0]
+x =create_student_dictionary(namespecific, "yes", "hell", "yes")
 
+def create_faculty_dictionary(names,student_ids, birthdays, department):
+    faculty={"full_name":names,"ID":student_ids,"student_birthday":birthdays,"student":department}
+    print(faculty)
+    for i in faculty["fu"]:
+        i
+    if faculty['student'][-1]=='Civil Engineering':
+        print(f"Hello {faculty['full_name'][-1]} Welcome to Engineering")
 
+create_faculty_dictionary(listofnames[0:10],listofstudentids[0:10],listofnirthdays[0:10],listofdepartment[0:10])
