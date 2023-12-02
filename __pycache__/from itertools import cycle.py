@@ -96,12 +96,12 @@ def move_right(event):
     if x2 < canvas_width:
         c.move(catcher, 20, 0)
 
-c.bind("<Left>", move_left)
-c.bind("<Right>", move_right)
-c.focus_set()
-root.after(1000, create_egg)
-root.after(1000, move_eggs)
-root.after(1000, check_catch)
-root.mainloop()
+c.bind("<Left>", move_left)  #AAP: binds the move left to pressing the left key
+c.bind("<Right>", move_right) #AAP: binds the move right to pressing the right key
+c.focus_set() #AAP: refers to the window recieiving keyboard input, prevents other keyboard inputs
+root.after(1000, create_egg) #AAP: schedules the creation of the egg after 1000 miliseconds
+root.after(1000, move_eggs) #AAP: schedules the movement of the egg after 1000 miliseconds
+root.after(1000, check_catch) #AAP: checks the catch after 1000 miliseconds
+root.mainloop() #AAP: game will go on forever until the user runs out of lives and closes the window
 
-#Coded with 💙 by Mr. Unity Buddy
+#Coded with 💙 by Mr. Unity Buddy #AAP: thank you for this lovely code Mr. Unity Buddy
