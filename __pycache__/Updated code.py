@@ -10,8 +10,10 @@ canvas_height = 400
 root = Tk()
 root.title("Egg Catcher")
 c = Canvas(root, width=canvas_width, height=canvas_height, background="deep sky blue")
+#c.create_rectangle(0, 0, canvas_width, canvas_height, fill="deep sky blue", width=0)
 c.create_rectangle(-5, canvas_height-100, canvas_width+5, canvas_height+5, fill="sea green", width=0)
 c.create_oval(-80, -80, 120, 120, fill='orange', width=0)
+
 c.pack()
 
 
@@ -34,16 +36,17 @@ catcher_startx2 = catcher_startx + catcher_width
 catcher_starty2 = catcher_starty + catcher_height
 
 catcher = c.create_arc(catcher_startx, catcher_starty, catcher_startx2, catcher_starty2, start=200, extent=140, style="arc", outline=catcher_color, width=0)
+c.lower(catcher)
 #print(catcher)
 game_font = font.nametofont("TkFixedFont")
 game_font.config(size=18)
 
 
-img=Image.open("__pycache__/crabapple.gif")
-img1=img.resize((200,200))
-image=ImageTk.PhotoImage(img1)
-image1=ImageTk.PhotoImage(img)
-img=c.create_image(310,250,anchor='nw',image=image)
+#img2=img.transpose(Image.FLIP_LEFT_RIGHT)
+#image=ImageTk.PhotoImage(img1)
+#image1=ImageTk.PhotoImage(img2)
+#img=c.create_image(310,250,anchor='nw',image=image)
+#img1=c.create_image(310,250,anchor='nw',image=image1)
 
 
 
@@ -60,9 +63,13 @@ def create_egg():
     x = randrange(10, 740)
     y = 40
     new_egg = c.create_oval(x, y, x+egg_width, y+egg_height, fill=next(color_cycle), width=0)
+    c.lower(new_egg)
     eggs.append(new_egg)
-    #print(eggs)
     root.after(egg_interval, create_egg)
+    if new_egg%10 == 7 or new_egg%10 == 2:
+        print(x)
+        return x
+
 
 def move_eggs():
     for egg in eggs:
@@ -70,6 +77,9 @@ def move_eggs():
         (eggx, eggy, eggx2, eggy2) = c.coords(egg)
         #print(c.coords(egg))
         c.move(egg,0, 10)
+        #print(egg)
+        if egg%10 == 7 or egg%10 == 2:
+            c.move(appl,0, 10)
         if eggy2 > canvas_height:
             egg_dropped(egg)
     root.after(egg_speed, move_eggs)
@@ -92,12 +102,14 @@ def check_catch():
     for egg in eggs:
         (eggx, eggy, eggx2, eggy2) = c.coords(egg)
         if catcherx < eggx and eggx2 < catcherx2 and catchery2 - eggy2 < 40:
-            if eggs[0]%10 == 7 or egg%10 == 2:
+            if egg%10 == 7 or egg%10 == 2:
                 increase_score(egg_score1)
             else:
                 increase_score(egg_score)
             eggs.remove(egg)
             c.delete(egg)
+            c.delete(appl)
+            #appl.forget
     root.after(100, check_catch)
 
 
@@ -112,20 +124,51 @@ def move_left(event):
     (x1, y1, x2, y2) = c.coords(catcher)
     if x1 > 0:
         c.move(catcher, -20, 0)
+        #img=img.transpose(Image.FLIP_LEFT_RIGHT)
         c.move(img, -20, 0)
 
 def move_right(event):
     (x1, y1, x2, y2) = c.coords(catcher)
     if x2 < canvas_width:
         c.move(catcher, 20, 0)
+        #img=img.transpose(Image.FLIP_LEFT_RIGHT)
         c.move(img, 20, 0)
+
+
+
+global img
+img=Image.open("__pycache__/crabapple.gif")
+img=img.resize((200,200))
+#img=img.transpose(Image.FLIP_LEFT_RIGHT)
+image=ImageTk.PhotoImage(img)
+img=c.create_image(310,250,anchor='nw',image=image)
+
+appl=Image.open("__pycache__/crappl.gif")
+appl=appl.resize((300,300))
+apple=ImageTk.PhotoImage(appl)
+
+def help():
+    global appl
+    x=create_egg()+25
+    for egg in eggs:
+        if egg%10 == 7 or egg%10 == 2:
+            print("hekl")
+
+            appl=c.create_image(x,100,image=apple)
+#x=create_egg
+#print(X)
+
 
 c.bind("<Left>", move_left)
 c.bind("<Right>", move_right)
 c.focus_set()
-root.after(1000, create_egg)
+root.after(1000, help)
 root.after(1000, move_eggs)
 root.after(1000, check_catch)
 root.mainloop()
+
+
+
+
 
 #Coded with 💙 by Mr. Unity Buddy

@@ -1,9 +1,12 @@
 from numpy import*
 from plotting import plot_transformation
+import math
 def transformations(x,y,k,theta):
     xy=tuple(zip(x,y))
     xy1=list(zip(x,y))
     print(xy)
+    theta=math.radians(theta)
+    
 
     #Shear Shape
     shear_matrix=array([[1,k],[0,1]])
@@ -39,13 +42,13 @@ def transformations(x,y,k,theta):
     xy_rotate=[xy_rotate_point_1,xy_rotate_point_2,xy_rotate_point_3,xy_rotate_point_4]
     #print(new_coordinates_1)
     return xy_shear,xy1,xy_rotate
-x=transformations([1,4,4,1],[1,1,4,4],1.1,pi/4)
+x=transformations([1,4,4,1],[1,1,4,4],1.1,45)
 xy_shear=x[0]
 xy=x[1]
 xy_rotate=x[2]
 
-plot_transformation(xy_shear,xy)
-plot_transformation(xy_rotate,xy)
+plot_transformation(xy,xy_shear)
+plot_transformation(xy,xy_rotate)
 
 
 
