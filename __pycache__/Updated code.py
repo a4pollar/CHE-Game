@@ -24,6 +24,7 @@ egg_width = 45
 egg_height = 55
 egg_score = 10
 egg_score1 = 20
+egg_score2 = -15
 egg_speed = 500
 egg_interval = 4000
 difficulty = 0.95
@@ -104,6 +105,9 @@ def check_catch():
         if catcherx < eggx and eggx2 < catcherx2 and catchery2 - eggy2 < 40:
             if egg%10 == 7 or egg%10 == 2:
                 increase_score(egg_score1)
+            elif eggs[0]%10 == 8 or egg%10 == 3:
+                increase_score(egg_score2)
+                lose_a_life()
             else:
                 increase_score(egg_score)
             eggs.remove(egg)
