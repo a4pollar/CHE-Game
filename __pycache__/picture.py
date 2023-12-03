@@ -3,25 +3,24 @@
 import numpy as np
 
 def create_picture_frame(width,height,char):
-    if type(width) != int or type(height) != int or type(char) != str or char not in "[@_!#$%^&*()<>?/|}{~:]" or height<3 or width<3:
-        print("Invalid")
+    if type(width) != int or type(height) != int or type(char) != str or len(char)!=1 or height<3 or width<3:
+        print("invalid!")
         return None
-    y=np.full((height,width),char)
-    (m,n)=y.shape
-    for i in range(len(y)):
-        for j in range(len(y[i])):
-            if 0<i<height-1  and 0<j<width-1:
-                y[i,j]=" "
-    return y
+    picture_frame=np.full((height,width),char)
+    (m,n)=picture_frame.shape
+    for i in range(1,m-1):
+        for j in range(1,n-1):
+            picture_frame[i,j]=" "
+    return picture_frame
 
 
 def print_picture_frame(create_picture_frame):
     if create_picture_frame is None:
         return None
-    for _ in create_picture_frame:
-        for i in _:
+    for row in create_picture_frame:
+        for i in row:
             print(i,end="")
         print()
 
 if __name__=="__main__":
-    print_picture_frame(create_picture_frame(10,3,'*'))
+    print_picture_frame(create_picture_frame(2,5,'O'))

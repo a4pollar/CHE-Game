@@ -23,7 +23,7 @@ egg_height = 55
 egg_score = 10
 egg_score1 = 20
 egg_score2 = -15
-egg_speed = 500
+egg_speed = 200
 egg_interval = 4000
 difficulty = 0.95
 catcher_color = "green"
@@ -40,7 +40,7 @@ game_font = font.nametofont("TkFixedFont")
 game_font.config(size=18)
 
 
-img=Image.open("C:\\Users\\User\\Downloads\\crabapple.gif")
+img=Image.open("__pycache__/crabapple.gif")
 img1=img.resize((200,200))
 image=ImageTk.PhotoImage(img1)
 image1=ImageTk.PhotoImage(img)
@@ -69,21 +69,22 @@ def move_eggs():
     for egg in eggs:
         #img1=c.create_image(50,250,anchor='nw',image=image1)
         (eggx, eggy, eggx2, eggy2) = c.coords(egg)
-        #print(c.coords(egg))
         c.move(egg,0, 10)
         if eggy2 > canvas_height:
-            egg_dropped(egg)
+            if egg%10 == 8 or egg%10 == 3:
+                egg_dropped(egg)
+            else:
+                lose_a_life()
+                egg_dropped(egg)
     root.after(egg_speed, move_eggs)
 
 def egg_dropped(egg):
     eggs.remove(egg)
     c.delete(egg)
-    lose_a_life()
     if lives_remaining == 0:
         messagebox.showinfo("Game Over!", "Final Score: "+ str(score))
         root.destroy()
-
-
+        
 
 def lose_a_life():
     global lives_remaining
@@ -100,17 +101,15 @@ def check_catch():
     for egg in eggs:
         (eggx, eggy, eggx2, eggy2) = c.coords(egg)
         if catcherx < eggx and eggx2 < catcherx2 and catchery2 - eggy2 < 40:
-            if eggs[0]%10 == 7 or egg%10 == 2:
+            if egg%10 == 7 or egg%10 == 2:
                 increase_score(egg_score1)
-            elif eggs[0]%10 == 8 or egg%10 == 3:
+            elif egg%10 == 8 or egg%10 == 3:
                 increase_score(egg_score2)
                 lose_a_life()
             elif eggs[0]%10 == 9 or egg%10 == 4:
                 gain_a_life()
             else:
                 increase_score(egg_score)
-    
-
             eggs.remove(egg)
             c.delete(egg)
     root.after(100, check_catch)

@@ -25,7 +25,7 @@ egg_height = 55
 egg_score = 10
 egg_score1 = 20
 egg_score2 = -15
-egg_speed = 500
+egg_speed = 200
 egg_interval = 4000
 difficulty = 0.95
 catcher_color = "green"
@@ -38,16 +38,8 @@ catcher_starty2 = catcher_starty + catcher_height
 
 catcher = c.create_arc(catcher_startx, catcher_starty, catcher_startx2, catcher_starty2, start=200, extent=140, style="arc", outline=catcher_color, width=0)
 c.lower(catcher)
-#print(catcher)
 game_font = font.nametofont("TkFixedFont")
 game_font.config(size=18)
-
-
-#img2=img.transpose(Image.FLIP_LEFT_RIGHT)
-#image=ImageTk.PhotoImage(img1)
-#image1=ImageTk.PhotoImage(img2)
-#img=c.create_image(310,250,anchor='nw',image=image)
-#img1=c.create_image(310,250,anchor='nw',image=image1)
 
 
 
@@ -66,29 +58,29 @@ def create_egg():
     new_egg = c.create_oval(x, y, x+egg_width, y+egg_height, fill=next(color_cycle), width=0)
     c.lower(new_egg)
     eggs.append(new_egg)
-    root.after(egg_interval, create_egg)
-    if new_egg%10 == 7 or new_egg%10 == 2:
-        print(x)
+    if new_egg%12 == 7 or new_egg%12 == 1:
         return x
 
 
 def move_eggs():
     for egg in eggs:
-        #img1=c.create_image(50,250,anchor='nw',image=image1)
         (eggx, eggy, eggx2, eggy2) = c.coords(egg)
-        #print(c.coords(egg))
         c.move(egg,0, 10)
-        #print(egg)
-        if egg%10 == 7 or egg%10 == 2:
+        if egg%12 == 7 or egg%12 == 1:
             c.move(appl,0, 10)
         if eggy2 > canvas_height:
-            egg_dropped(egg)
+            if egg%12 == 7 or egg%12 == 1:
+                c.delete(appl)
+            elif egg%12 == 9 or egg%12 == 3:
+                egg_dropped(egg)
+            else:
+                lose_a_life()
+                egg_dropped(egg)
     root.after(egg_speed, move_eggs)
 
 def egg_dropped(egg):
     eggs.remove(egg)
     c.delete(egg)
-    lose_a_life()
     if lives_remaining == 0:
         messagebox.showinfo("Game Over!", "Final Score: "+ str(score))
         root.destroy()
@@ -98,23 +90,30 @@ def lose_a_life():
     lives_remaining -= 1
     c.itemconfigure(lives_text, text="Lives: "+ str(lives_remaining))
 
+def gain_a_life():
+    global lives_remaining
+    lives_remaining += 1
+    c.itemconfigure(lives_text, text="Lives: "+ str(lives_remaining))
+
 def check_catch():
     (catcherx, catchery, catcherx2, catchery2) = c.coords(catcher)
     for egg in eggs:
         (eggx, eggy, eggx2, eggy2) = c.coords(egg)
         if catcherx < eggx and eggx2 < catcherx2 and catchery2 - eggy2 < 40:
-            if egg%10 == 7 or egg%10 == 2:
+            if egg%12 == 7 or egg%12 == 1:
                 increase_score(egg_score1)
-            elif eggs[0]%10 == 8 or egg%10 == 3:
+                c.delete(appl)
+            elif egg%12 == 9 or egg%12 == 3:
                 increase_score(egg_score2)
                 lose_a_life()
+            elif egg%12 == 10 or egg%12 == 4:
+                gain_a_life()
             else:
                 increase_score(egg_score)
             eggs.remove(egg)
             c.delete(egg)
-            c.delete(appl)
-            #appl.forget
     root.after(100, check_catch)
+            
 
 
 def increase_score(points):
@@ -153,14 +152,11 @@ apple=ImageTk.PhotoImage(appl)
 
 def help():
     global appl
-    x=create_egg()+25
-    for egg in eggs:
-        if egg%10 == 7 or egg%10 == 2:
-            print("hekl")
-
-            appl=c.create_image(x,100,image=apple)
-#x=create_egg
-#print(X)
+    x=create_egg()
+    if eggs[-1]%12 == 7 or eggs[-1]%12 == 1:
+        x+=25
+        appl=c.create_image(x,100,image=apple)
+    root.after(egg_interval, help)
 
 
 c.bind("<Left>", move_left)
