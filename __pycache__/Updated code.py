@@ -63,6 +63,8 @@ def create_egg():
 
 
 def move_eggs():
+    if root.winfo_exists() == 0:
+        return 
     for egg in eggs:
         (eggx, eggy, eggx2, eggy2) = c.coords(egg)
         c.move(egg,0, 10)
