@@ -138,8 +138,6 @@ def move():
     turt.shape('OneDrive\Documents\GitHub\CHE-Game\__pycache__\crabapple1.gif')
     turt.penup()
     turt.goto(pacman.x + 10, pacman.y + 10)
-    screen.update()
-    screen.tracer(0)
     turt.pendown()
 
 

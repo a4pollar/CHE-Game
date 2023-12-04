@@ -1,6 +1,8 @@
-from itertools import cycle
+from itertools import cycle     
 from random import randrange
 from tkinter import Canvas, Tk, messagebox, font
+from tkinter import*
+from PIL import Image,ImageTk
 
 canvas_width = 800
 canvas_height = 400
@@ -94,6 +96,12 @@ def move_right(event):
     (x1, y1, x2, y2) = c.coords(catcher)
     if x2 < canvas_width:
         c.move(catcher, 20, 0)
+
+bomb=Image.open("__pycache__/Background.gif")
+image=bomb.resize((100,100),Image.LANCZOS)
+image = ImageTk.PhotoImage(file = "__pycache__/Background.gif")
+background_image=c.create_image(0, 0, image = image, anchor = NW)
+
 
 c.bind("<Left>", move_left)
 c.bind("<Right>", move_right)

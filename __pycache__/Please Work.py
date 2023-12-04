@@ -10,8 +10,6 @@ canvas_height = 400
 root = Tk()
 root.title("Egg Catcher")
 c = Canvas(root, width=canvas_width, height=canvas_height, background="deep sky blue")
-#c.create_rectangle(-5, canvas_height-100, canvas_width+5, canvas_height+5, fill="sea green", width=0)
-#c.create_oval(-80, -80, 120, 120, fill='orange', width=0)
 
 c.pack(expand = YES, fill = BOTH)
 
@@ -21,8 +19,8 @@ egg_height = 55
 egg_score = 10
 egg_score1 = 20
 egg_score2 = -15
-egg_speed = 500
-egg_interval = 4000
+egg_speed = 200
+egg_interval = 2000
 difficulty = 0.95
 catcher_color = "green"
 catcher_width = 80
@@ -52,18 +50,16 @@ def move_eggs():
     for egg in eggs:
         (eggx, eggy, eggx2, eggy2) = c.coords(egg)
         c.move(egg,0, 10)
-        #print(egg)
-        #print(eggs)
         if egg%20 == 6 or egg%20 == 16:
             c.move(bomb,0,10)
         elif egg%20 == 8 or egg%20 == 18:
             c.move(heart,0,10) 
         elif egg%20 == 10 or egg%20 == 0:
-            c.move(golden1,0,10)
+            c.move(apple_red,0,10)
         elif egg%20 == 12 or egg%20 == 2:
-            c.move(green1,0,10)
+            c.move(apple_orange,0,10)
         elif egg%20 == 14 or egg%20 == 4:
-            c.move(appl,0,10)
+            c.move(apple_golden,0,10)
         if eggy2 > canvas_height:
             egg_dropped(egg)
             if egg%20 == 6 or egg%20 == 16:
@@ -72,11 +68,11 @@ def move_eggs():
             elif egg%20 == 8 or egg%20 == 18:
                 c.delete(heart)
             elif egg%20 == 14 or egg%20 == 4:
-                c.delete(appl)
+                c.delete(apple_golden)
             elif egg%20 == 12 or egg%20 == 2:
-                c.delete(green1)
+                c.delete(apple_orange)
             elif egg%20 == 10 or egg%20 == 0:
-                c.delete(golden1)
+                c.delete(apple_red)
     root.after(egg_speed, move_eggs)
 
 def egg_dropped(egg):
@@ -102,7 +98,6 @@ def check_catch():
     for egg in eggs:
         (eggx, eggy, eggx2, eggy2) = c.coords(egg)
         if catcherx < eggx and eggx2 < catcherx2 and catchery2 - eggy2 < 40:
-            #print(egg)
             if egg%20 == 6 or egg%20 == 16:
                 increase_score(egg_score2)
                 lose_a_life()
@@ -111,13 +106,13 @@ def check_catch():
                 gain_a_life()
                 c.delete(heart)
             if egg%20 == 14 or egg%20 == 4:
-                c.delete(appl)
+                c.delete(apple_golden)
                 increase_score(egg_score1)
             elif egg%20 == 12 or egg%20 == 2:
-                c.delete(green1)
+                c.delete(apple_orange)
                 increase_score(egg_score)
             elif egg%20 == 10 or egg%20 == 0:
-                c.delete(golden1)
+                c.delete(apple_red)
                 increase_score(egg_score)
             eggs.remove(egg)
             c.delete(egg)
@@ -134,74 +129,77 @@ def move_left(event):
     (x1, y1, x2, y2) = c.coords(catcher)
     if x1 > 0:
         c.move(catcher, -20, 0)
-        #img=img.transpose(Image.FLIP_LEFT_RIGHT)
-        c.move(img, -20, 0)
+        c.move(goose, -20, 0)
 
 def move_right(event):
     (x1, y1, x2, y2) = c.coords(catcher)
     if x2 < canvas_width:
         c.move(catcher, 20, 0)
-        #img=img.transpose(Image.FLIP_LEFT_RIGHT)
-        c.move(img, 20, 0)
+        c.move(goose, 20, 0)
 
+#Displays the background picture on the window
 background=Image.open("background1.gif")
 background=background.resize((810,410))
 background=ImageTk.PhotoImage(background)
 c.create_image(0,0,anchor='nw',image=background)
 
+#Sets score to zero and creates and displays the textbox that shows the user the score
 score = 0
 score_text = c.create_text(10, 10, anchor="nw", font=game_font, fill="darkblue", text="Score: "+ str(score))
 
+#Sets the lives remaining to three and creates and displays the textbook that shows the user their lives remaining
 lives_remaining = 3
 lives_text = c.create_text(canvas_width-10, 10, anchor="ne", font=game_font, fill="darkblue", text="Lives: "+ str(lives_remaining))
 
-global img
-img=Image.open("crabapple.gif")
-img=img.resize((200,200))
-image=ImageTk.PhotoImage(img)
-img=c.create_image(310,250,anchor='nw',image=image)
+#Defining the various images
+#Displaying Goose image to the useer
+Goose=Image.open("crabapple.gif")
+Goose=Goose.resize((200,200))
+Goose=ImageTk.PhotoImage(Goose)
+goose=c.create_image(310,250,anchor='nw',image=Goose)
 
-appl=Image.open("crappl.gif")
-appl=appl.resize((300,300))
-apple=ImageTk.PhotoImage(appl)
+#Initalizes the golden apple image
+Apple_golden=Image.open("crappl (4).gif")
+Apple_golden=Apple_golden.resize((300,300))
+Apple_golden=ImageTk.PhotoImage(Apple_golden)
 
+#Initalizes the bomb image
 bomb=Image.open("Bomb.gif")
-bomb=bomb.resize((100,100))
+bomb=bomb.resize((180,180))
 Bomb=ImageTk.PhotoImage(bomb)
-#c.create_image(310,250,anchor='nw',image=bomb)
 
+#Initalizes the heart image
 heart=Image.open("Heart.gif")
-heart=heart.resize((300,300))
+heart=heart.resize((250,250))
 Heart=ImageTk.PhotoImage(heart)
-#c.create_image(90,250,anchor='nw',image=heart)
 
-golden=Image.open("crappl (3).gif")
-golden=golden.resize((300,300))
-golden=ImageTk.PhotoImage(golden)
+#Initalizes the red apple image
+Apple_red=Image.open("crappl.gif")
+Apple_red=Apple_red.resize((300,300))
+Apple_red=ImageTk.PhotoImage(Apple_red)
 
-green=Image.open("crappl (4).gif")
-green=green.resize((300,300))
-green=ImageTk.PhotoImage(green)
+#Initalizes the orange apple image
+Apple_orange=Image.open("crappl (3).gif")
+Apple_orange=Apple_orange.resize((300,300))
+Apple_orange=ImageTk.PhotoImage(Apple_orange)
 
 
-def help():
-    global appl, bomb, heart, golden1, green1
+def Images_based_on_eggs():
+    global apple_golden, bomb, heart, apple_red, apple_orange
     x=create_egg()
     for egg in eggs:
         if eggs[-1]==egg:
             x+=25
-            print(egg)
-            print(eggs)
             if egg%20 == 6 or egg%20 == 16:
                 bomb=c.create_image(x,100,image=Bomb)
             elif egg%20 == 8 or egg%20 == 18:
                 heart=c.create_image(x,100,image=Heart) 
             elif egg%20 == 10 or egg%20 == 0:
-                golden1=c.create_image(x,100,image=golden)
+                apple_red=c.create_image(x,100,image=Apple_red)
             elif egg%20 == 12 or egg%20 == 2:
-                green1=c.create_image(x,100,image=green)
+                apple_orange=c.create_image(x,100,image=Apple_orange)
             elif egg%20 == 14 or egg%20 == 4:
-                appl=c.create_image(x,100,image=apple)
+                apple_golden=c.create_image(x,100,image=Apple_golden)
     root.after(egg_interval, help)
 
 
@@ -213,6 +211,3 @@ root.after(1000, move_eggs)
 root.after(1000, check_catch)
 root.mainloop()
 
-
-
-#Coded with 💙 by Mr. Unity Buddy
