@@ -40,7 +40,7 @@ lives_text = c.create_text(canvas_width-10, 10, anchor="ne", font=game_font, fil
 
 eggs = [] #AJ: To keep track of the eggs in the game, this initializes the variable 'eggs' into a list
 
-def create_egg(): #Function is used to create new eggs in the game
+def create_egg(): #AJ: Function is used to create new eggs in the game
     x = randrange(10, 740) #AJ: Chooses random x-coordinates for the new eggs to spawn at
     y = 40 #AJ: The eggs will be dropped from the same initial starting height so the y-coordinate will remain constant
     new_egg = c.create_oval(x, y, x+egg_width, y+egg_height, fill=next(color_cycle), width=0) #AJ: c.create_oval uses canvas, a widget used to create structural graphics, in order to create the oval shape. After defining the boundaries of the oval with x and y, it fills in the oval with a random colour on the colour cycle. The width is set to 0 so there is no border and an oval filled with a single colour is created
