@@ -123,24 +123,24 @@ def check_catch():
             c.delete(egg)
     root.after(100, check_catch)
             
-def increase_score(points):
-    global score, egg_speed, egg_interval
-    score += points
-    egg_speed = int(egg_speed * difficulty)
-    egg_interval = int(egg_interval * difficulty)
-    c.itemconfigure(score_text, text="Score: "+ str(score))
+def increase_score(points): # VK This fucntion increases the points of the user with the parameter points
+    global score, egg_speed, egg_interval #VK The variables 'score', 'egg_speed', and 'egg_interval' can be accessed outside the function and through out the script
+    score += points # VK Score is increased by the value of points
+    egg_speed = int(egg_speed * difficulty) # VK Egg_speed is the int value of the intial egg_speed times the difficulty
+    egg_interval = int(egg_interval * difficulty) # VK egg_intercal is the int value of the intial egg_interval times the difficultt
+    c.itemconfigure(score_text, text="Score: "+ str(score)) # VK Updates the score displayed on the screen every time it changes
 
-def move_left(event):
-    (x1, y1, x2, y2) = c.coords(catcher)
-    if x1 > 0:
-        c.move(catcher, -20, 0)
-        c.move(goose, -20, 0)
+def move_left(event): #VK This function moves the catcher left
+    (x1, y1, x2, y2) = c.coords(catcher) # VK Assigns catchers coords to x1, y1, x2 ,y2
+    if x1 > 0: # VK Checks if x1 is not at the very left side of the canvas (if x1 is greater than 0)
+        c.move(catcher, -20, 0) # VK it moves the catcher left by 20 units
+        c.move(goose, -20, 0) # VK moves goose 20 units left
 
-def move_right(event):
-    (x1, y1, x2, y2) = c.coords(catcher)
-    if x2 < canvas_width:
-        c.move(catcher, 20, 0)
-        c.move(goose, 20, 0)
+def move_right(event): # VK This function moves the catcher right
+    (x1, y1, x2, y2) = c.coords(catcher) #VK Assigns catchers coords to these variables
+    if x2 < canvas_width: # VK checks if the x2 is not at the very right of the canvas (if  x2 less than 800)
+        c.move(catcher, 20, 0) # VK moves the catcher to the right by 20 units
+        c.move(goose, 20, 0) # VK Moves goose 20 units right
 
 #Displays the background picture on the window
 background=Image.open("background1.gif")
