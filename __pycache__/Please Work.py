@@ -1,3 +1,4 @@
+#Importing all the necessary libraries and modulus 
 from itertools import cycle     
 from random import randrange
 from tkinter import Canvas, Tk, messagebox, font
@@ -61,17 +62,21 @@ def move_eggs():
         elif egg%20 == 14 or egg%20 == 4:
             c.move(apple_golden,0,10)
         if eggy2 > canvas_height:
-            egg_dropped(egg)
             if egg%20 == 6 or egg%20 == 16:
                 gain_a_life()
+                egg_dropped(egg)
                 c.delete(bomb)
             elif egg%20 == 8 or egg%20 == 18:
+                egg_dropped(egg)
                 c.delete(heart)
             elif egg%20 == 14 or egg%20 == 4:
+                egg_dropped(egg)
                 c.delete(apple_golden)
             elif egg%20 == 12 or egg%20 == 2:
+                egg_dropped(egg)
                 c.delete(apple_orange)
             elif egg%20 == 10 or egg%20 == 0:
+                egg_dropped(egg)
                 c.delete(apple_red)
     root.after(egg_speed, move_eggs)
 
@@ -183,11 +188,11 @@ Apple_orange=Image.open("crappl (3).gif")
 Apple_orange=Apple_orange.resize((300,300))
 Apple_orange=ImageTk.PhotoImage(Apple_orange)
 
-
-def Images_based_on_eggs():
-    global apple_golden, bomb, heart, apple_red, apple_orange
-    x=create_egg()
-    for egg in eggs:
+#Function assigns each image to its assosiated egg and prints the image to the screen
+def Images():
+    global apple_golden, bomb, heart, apple_red, apple_orange       #Defines variables for the images as global so that they can be called at other areas in the code
+    x=create_egg()                                                  #Determines the x coordinate of the egg being printed 
+    for egg in eggs:                                                #Goes through each egg in the list
         if eggs[-1]==egg:
             x+=25
             if egg%20 == 6 or egg%20 == 16:
@@ -200,13 +205,13 @@ def Images_based_on_eggs():
                 apple_orange=c.create_image(x,100,image=Apple_orange)
             elif egg%20 == 14 or egg%20 == 4:
                 apple_golden=c.create_image(x,100,image=Apple_golden)
-    root.after(egg_interval, help)
+    root.after(egg_interval, Images)
 
 
 c.bind("<Left>", move_left)
 c.bind("<Right>", move_right)
 c.focus_set()
-root.after(1000, help)
+root.after(1000, Images)
 root.after(1000, move_eggs)
 root.after(1000, check_catch)
 root.mainloop()
