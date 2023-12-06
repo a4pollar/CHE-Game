@@ -5,7 +5,7 @@ from tkinter import Canvas, Tk, messagebox, font
 from tkinter import*
 from PIL import Image,ImageTk
 
-#AAP: Sets up the diemensions of the canvas
+#AAP: Sets up the dimensions of the canvas
 canvas_width = 800
 canvas_height = 400
 
@@ -49,7 +49,7 @@ def create_egg():
     new_egg = c.create_oval(x, y, x+egg_width, y+egg_height, fill=next(color_cycle), width=0)
     c.lower(new_egg)            #AJ: Places the egg behind the background, so that it cannot be seen by the user
     eggs.append(new_egg)        
-    return x                    #AJ: Returns the intial x coordinate of the egg so that the corresponding image can be printed at the same location
+    return x                    #AP: Returns the initial x coordinate of the egg so that the corresponding image can be printed at the same location
 
 
 def Images():                                                       #AP: Function assigns each image to its associated egg and prints the image to the screen
@@ -129,30 +129,30 @@ def check_catch():              #VK: Function checks for when collisions occur b
     for egg in eggs:                                                    #VK: Creates a loop that will go through every egg in the list 'eggs'
         (eggx, eggy, eggx2, eggy2) = c.coords(egg)                      #VK: Determines the coordinates of the egg
         if catcherx < eggx and eggx2 < catcherx2 and catchery2 - eggy2 < 40:        #VK: Checks to see if there is a collision between the catcher/goose image and an egg
-            if egg%10 == 6:                         #AP: If the egg/bomb image hits the catcher/gooose image, the user loses a life and 15 points to their score                 
+            if egg%10 == 6:                         #AP: If the egg/bomb image hits the catcher/goose image, the user loses a life and 15 points to their score                 
                 increase_score(egg_score2)          #AP: The increase_score function is called and 15 points is subtracted from the users score
                 lose_a_life()                       #AP: The lose_a_life function is called and the user loses a life
                 c.delete(bomb)                      #AP: Bomb image is deleted from the screen
             elif egg%10 == 8:                       #AP: If the egg/heart image hits the catcher/goose image, the user gains a life
                 gain_a_life()                       #AP: The gain_a_life function is called and the user gains a life
                 c.delete(heart)                     #AP: Heart image is deleted from the screen
-            if egg%10 == 4:                         #AP: If the egg/golden apple image hits the catcher/gooose image, the user gets 20 points added to their score
+            if egg%10 == 4:                         #AP: If the egg/golden apple image hits the catcher/goose image, the user gets 20 points added to their score
                 c.delete(apple_golden)              #AP: Golden apple image is deleted from the screen
                 increase_score(egg_score1)          #AP: The increase_score funciton is called, and the user gains 20 points
-            elif egg%10 == 2:                       #AP: If the egg/orange apple image hits the catcher/gooose image, the user gets 10 points added to their score
+            elif egg%10 == 2:                       #AP: If the egg/orange apple image hits the catcher/goose image, the user gets 10 points added to their score
                 c.delete(apple_orange)              #AP: Orange apple image is deleted from the screen
                 increase_score(egg_score)           #AP: The increase-score function is called, and the user gains 10 points
-            elif egg%10 == 0:                       #AP: If the egg/red apple image hits the catcher/gooose image, the user gets 10 points added to their score
+            elif egg%10 == 0:                       #AP: If the egg/red apple image hits the catcher/goose image, the user gets 10 points added to their score
                 c.delete(apple_red)                 #AP: Red apple image is deleted from the screen
                 increase_score(egg_score)           #AP: The increase-score function is called, and the user gains 10 points
             eggs.remove(egg)                        #AP: Removes the eggs the egg list
             c.delete(egg)                           #AP: Removes the egg from the screen
     root.after(100, check_catch)                    #AP: Schedules function to repeat everytime an egg is created
             
-def increase_score(points): # VK: This fucntion increases the points of the user with the parameter points
+def increase_score(points): # VK: This function increases the points of the user with the parameter points
     global score, egg_speed, egg_interval #VK: The variables 'score', 'egg_speed', and 'egg_interval' can be accessed outside the function and through out the script
     score += points # VK: Score is increased by the value of points
-    egg_speed = int(egg_speed * difficulty) # VK: Egg_speed is the int value of the intial egg_speed times the difficulty
+    egg_speed = int(egg_speed * difficulty) # VK: Egg_speed is the int value of the initial egg_speed times the difficulty
     egg_interval = int(egg_interval * difficulty) # VK: egg_intercal is the int value of the intial egg_interval times the difficultt
     c.itemconfigure(score_text, text="Score: "+ str(score)) #: VK Updates the score displayed on the screen every time it changes
 
@@ -178,7 +178,7 @@ c.create_image(0,0,anchor='nw',image=background)
 score = 0
 score_text = c.create_text(10, 10, anchor="nw", font=game_font, fill="darkblue", text="Score: "+ str(score))
 
-#AAP: Sets the lives remaining to three and creates and displays the textbook that shows the user their lives remaining
+#AAP: Sets the lives remaining to three and creates and displays the textblock that shows the user their lives remaining
 lives_remaining = 3
 lives_text = c.create_text(canvas_width-10, 10, anchor="ne", font=game_font, fill="darkblue", text="Lives: "+ str(lives_remaining))
 
@@ -218,7 +218,7 @@ Apple_orange=ImageTk.PhotoImage(Apple_orange)
 c.bind("<Left>", move_left)
 c.bind("<Right>", move_right)
 c.focus_set()
-root.after(1000, Images)        #AP: Assigns each image to their coresponding egg and prints egg and image to the screen
+root.after(1000, Images)        #AP: Assigns each image to their corresponding egg and prints egg and image to the screen
 root.after(1000, move_eggs)
 root.after(1000, check_catch)
 root.mainloop()
