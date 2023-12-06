@@ -92,7 +92,7 @@ def egg_dropped(egg):           #VK: Function that defines the parameter for an 
     lose_a_life()
     eggs.remove(egg)
     c.delete(egg)
-    if lives_remaining == 0:
+    if lives_remaining < 1:
         messagebox.showinfo("Game Over!", "Final Score: "+ str(score))
         root.quit()             #AAP: Closes down the window
 
