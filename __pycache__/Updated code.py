@@ -21,7 +21,7 @@ egg_height = 55
 egg_score = 10
 egg_score1 = 20
 egg_score2 = -15
-egg_speed = 500
+egg_speed = 200
 egg_interval = 4000
 difficulty = 0.95
 catcher_color = "green"
@@ -128,6 +128,8 @@ def increase_score(points):
     score += points
     egg_speed = int(egg_speed * difficulty)
     egg_interval = int(egg_interval * difficulty)
+    #print(egg_speed)
+    #print(egg_interval)
     c.itemconfigure(score_text, text="Score: "+ str(score))
 
 def move_left(event):
@@ -175,13 +177,14 @@ heart=heart.resize((300,300))
 Heart=ImageTk.PhotoImage(heart)
 #c.create_image(90,250,anchor='nw',image=heart)
 
-golden=Image.open("crappl (3).gif")
-golden=golden.resize((300,300))
+golden=Image.open("goldengood.gif")
+golden=golden.resize((100,100))
 golden=ImageTk.PhotoImage(golden)
 
-green=Image.open("crappl (4).gif")
-green=green.resize((300,300))
+green=Image.open("greenyy.gif")
+green=green.resize((100,100))
 green=ImageTk.PhotoImage(green)
+
 
 
 def help():
@@ -190,8 +193,8 @@ def help():
     for egg in eggs:
         if eggs[-1]==egg:
             x+=25
-            print(egg)
-            print(eggs)
+            #print(egg)
+            #print(eggs)
             if egg%20 == 6 or egg%20 == 16:
                 bomb=c.create_image(x,100,image=Bomb)
             elif egg%20 == 8 or egg%20 == 18:
