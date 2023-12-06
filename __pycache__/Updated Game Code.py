@@ -1,3 +1,8 @@
+#AP: Alexa Pollard
+#AAP: Aditi Patel
+#VK: Venusha Kirupakaran
+#AK: Abhilash Jakanathan
+
 #AAP: Importing all the necessary libraries and modulus 
 from itertools import cycle     
 from random import randrange
@@ -222,9 +227,3 @@ root.after(1000, Images)        #AP: Assigns each image to their corresponding e
 root.after(1000, move_eggs)
 root.after(1000, check_catch)
 root.mainloop()
-
-
-#AP: Alexa Pollard
-#AAP: Aditi Patel
-#VK: Venusha Kirupakaran
-#AK: Abhilash Jakanathan
