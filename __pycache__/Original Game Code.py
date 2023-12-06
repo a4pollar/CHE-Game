@@ -74,32 +74,33 @@ def lose_a_life(): #AP: Takes a life away by  an increment of 1 whenever the egg
     lives_remaining -= 1 #AP: Reduces the lives_remaining value by 1, showing that a player has lost a life.
     c.itemconfigure(lives_text, text="Lives: "+ str(lives_remaining)) #AP: Updates the value of lives remaining on the screen. It updates the displayed text on the canvas where it says 'Lives' and it does this by converting the numerical value of remaining lives into a string.
 
-def check_catch(): # VK This function checks for when collisions occur between the lists 'catcher' and 'egg'
-    (catcherx, catchery, catcherx2, catchery2) = c.coords(catcher) #VK assigns the top left and bottom right coordinates of the catcher on the canvas ????
-    for egg in eggs: # VK Checks each index in the this list 
+def check_catch(): # VK This function checks for when collisions occur between the lists 'catcher' and 'egg'. In terms of the game, this refers to when the player catches an egg in the basket
+    (catcherx, catchery, catcherx2, catchery2) = c.coords(catcher) #VK assigns the top left and bottom right coordinates of the catcher on the canvas
+
+    for egg in eggs: # VK Starts a for loop that checks through each egg in the list 
         (eggx, eggy, eggx2, eggy2) = c.coords(egg) #VK simalary to the catcher coords, this assigns the coords of the egg on the canvas ???
-        if catcherx < eggx and eggx2 < catcherx2 and catchery2 - eggy2 < 40: # VK checks whether if the eggs width falls within the catchers width and checks if the vertical range is close enough
-            eggs.remove(egg) # VK if this is true then it removes the egg from the screen ??
-            c.delete(egg) # VK Deletes from history
-            increase_score(egg_score) # VK Increases the score
+        if catcherx < eggx and eggx2 < catcherx2 and catchery2 - eggy2 < 40: # VK simalary to the catcher coords, this retrieves the coords of the egg on the canvas
+            eggs.remove(egg) # VK if this is true then it removes the egg from the list.
+            c.delete(egg) # VK Deletes the graphics of the egg on the screen
+            increase_score(egg_score) # VK  Increases the score by 10 points
     root.after(100, check_catch) # VK Schedules function to reoccur this function after 100ms 
 
-def increase_score(points): # VK This fucntion increases the points of the user with the parameter points
+def increase_score(points): # VK This function increases the points of the user with the parameter points
     global score, egg_speed, egg_interval #VK The variables 'score', 'egg_speed', and 'egg_interval' can be accessed outside the function and through out the script
     score += points # VK Score is increased by the value of points
-    egg_speed = int(egg_speed * difficulty) # VK Egg_speed is the int value of the intial egg_speed times the difficulty
-    egg_interval = int(egg_interval * difficulty) # VK egg_intercal is the int value of the intial egg_interval times the difficultt
+    egg_speed = int(egg_speed * difficulty) # VK After taking the int value of the egg_speed, it is multiplied by the difficulty, gradually increasing the speed in which the eggs fall
+    egg_interval = int(egg_interval * difficulty) # VK  egg_interval is multiplied by the difficulty to decrease the interval in which the eggs are spawning
     c.itemconfigure(score_text, text="Score: "+ str(score)) # VK Updates the score displayed on the screen every time it changes
     
 def move_left(event): #VK This function moves the catcher left
     (x1, y1, x2, y2) = c.coords(catcher) # VK Assigns catchers coords to x1, y1, x2 ,y2
-    if x1 > 0: # VK Checks if x1 is not at the very left side of the canvas (if x1 is greater than 0)
-        c.move(catcher, -20, 0) # VK it moves the catcher left by 20 units
+    if x1 > 0: # VK Checks if x1 is not at the very left side of the canvas (if x1 is greater than 0). This ensures that the catcher doesn’t go too far left off the canvas.
+        c.move(catcher, -20, 0) # VK it moves the catcher left by 20 units if the catcher isn’t too far to the left where it can leave the screen
 
 def move_right(event): # VK This function moves the catcher right
     (x1, y1, x2, y2) = c.coords(catcher) #VK Assigns catchers coords to these variables
     if x2 < canvas_width: # VK checks if the x2 is not at the very right of the canvas (if  x2 less than 800)
-        c.move(catcher, 20, 0) # VK moves the catcher to the right by 20 units
+        c.move(catcher, 20, 0) # VK moves the catcher to the right by 20 units of the catcher isn’t too far to the right that it will leave the screen
 
 c.bind("<Left>", move_left)  #AAP: binds the move left to pressing the left key
 c.bind("<Right>", move_right) #AAP: binds the move right to pressing the right key
