@@ -105,3 +105,7 @@ root.after(1000, check_catch) #AAP: checks the catch after 1000 miliseconds
 root.mainloop() #AAP: game will go on forever until the user runs out of lives and closes the window
 
 #Coded with 💙 by Mr. Unity Buddy #AAP: thank you for this lovely code Mr. Unity Buddy
+#AP: Alexa Pollard
+#AAP: Aditi Patel
+#VK: Venusha Kirupakaran
+#AK: Abhilash Jakanathan
