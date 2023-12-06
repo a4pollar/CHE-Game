@@ -1,3 +1,8 @@
+#AP: Alexa Pollard
+#AAP: Aditi Patel
+#VK: Venusha Kirupakaran
+#AK: Abhilash Jakanathan
+
 from itertools import cycle     #AAP: importing cycle from itertools to create a colour cycle
 from random import randrange  #AAP: importing randrange from random to generate random numbers
 from tkinter import Canvas, Tk, messagebox, font #AAP: importing Tinkter modules
@@ -105,7 +110,3 @@ root.after(1000, check_catch) #AAP: checks the catch after 1000 miliseconds
 root.mainloop() #AAP: game will go on forever until the user runs out of lives and closes the window
 
 #Coded with 💙 by Mr. Unity Buddy #AAP: thank you for this lovely code Mr. Unity Buddy
-#AP: Alexa Pollard
-#AAP: Aditi Patel
-#VK: Venusha Kirupakaran
-#AK: Abhilash Jakanathan
