@@ -69,10 +69,10 @@ def egg_dropped(egg): #AJ: Defines the parameter for the egg that has reached th
         messagebox.showinfo("Game Over!", "Final Score: "+ str(score)) #AJ: A message will appear on the screen telling the player that the game is over, including their final score. To do this, the score will be converted into a string so it can be displayed with the other text.
         root.destroy() #AJ: Closes the game window since the game is over
 
-def lose_a_life(): #Takes a life away by  an increment of 1 whenever the egg doesnt fall in the basket
-    global lives_remaining #AJ: Changes the lives_remaining variable from a local to a global variable, so we can call on it throughout the code
-    lives_remaining -= 1 #Reduces the lives_remaining value by 1, showing that a player has lost a life.
-    c.itemconfigure(lives_text, text="Lives: "+ str(lives_remaining)) #Updates the value of lives remaining on the screen. It updates the displayed text on the canvas where it says 'Lives' and it does this by converting the numerical value of remaining lives into a string.
+def lose_a_life(): #AP: Takes a life away by  an increment of 1 whenever the egg doesnt fall in the basket
+    global lives_remaining #AP: Changes the lives_remaining variable from a local to a global variable, so we can call on it throughout the code
+    lives_remaining -= 1 #AP: Reduces the lives_remaining value by 1, showing that a player has lost a life.
+    c.itemconfigure(lives_text, text="Lives: "+ str(lives_remaining)) #AP: Updates the value of lives remaining on the screen. It updates the displayed text on the canvas where it says 'Lives' and it does this by converting the numerical value of remaining lives into a string.
 
 def check_catch(): # VK This function checks for when collisions occur between the lists 'catcher' and 'egg'
     (catcherx, catchery, catcherx2, catchery2) = c.coords(catcher) #VK assigns the top left and bottom right coordinates of the catcher on the canvas ????
@@ -106,7 +106,7 @@ c.bind("<Right>", move_right) #AAP: binds the move right to pressing the right k
 c.focus_set() #AAP: refers to the window recieiving keyboard input, prevents other keyboard inputs
 root.after(1000, create_egg) #AAP: schedules the creation of the egg after 1000 miliseconds
 root.after(1000, move_eggs) #AAP: schedules the movement of the egg after 1000 miliseconds
-root.after(1000, check_catch) #AAP: checks the catch after 1000 miliseconds
-root.mainloop() #AAP: game will go on forever until the user runs out of lives and closes the window
+root.after(1000, check_catch) #AP: checks the catch after 1000 miliseconds
+root.mainloop() #AP: game will go on forever until the user runs out of lives and closes the window
 
 #Coded with 💙 by Mr. Unity Buddy #AAP: thank you for this lovely code Mr. Unity Buddy
